@@ -6,6 +6,7 @@ type SuccessResponse = { message: string, httpStatus: number, object: any };
 type UnionResponse = CustomResponse | SuccessResponse;
 type PartialBook = Partial<Book>;
 type NumberOrString = number | string;
+type IdOmitBook = Omit<Book, "id">;
 
 type Book = {
     id: number;
@@ -13,9 +14,6 @@ type Book = {
     author: string;
     year: number;
 };
-
-
-type IdOmitBook = Omit<Book, "id">;
 
 const books: Book[] = [
     { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", year: 1925 },

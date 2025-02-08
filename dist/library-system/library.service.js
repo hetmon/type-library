@@ -35,7 +35,7 @@ function updateBook(req) {
     const bookId = parseInt(req.params.id);
     const book = getBookFromArray(bookId);
     if (book === undefined)
-        return { message: "Book not found with given id", httpStatus: 404 };
+        return { message: `Book not found with given id: ${bookId}`, httpStatus: 404 };
     Object.assign(book, req.body);
     return { message: "Book updated successfully", httpStatus: 200, object: book };
 }
@@ -46,6 +46,9 @@ function getBookFromArray(param) {
 function validateBodyData(body) {
     const allowedKeys = ["title", "author", "year"];
     const bodyKeys = Object.keys(body);
+    if (bodyKeys.length > allowedKeys.length) {
+        return { message: `There is more data than allowed. Allowed keys: title,author,year`, httpStatus: 400 };
+    }
     const invalidKeys = bodyKeys.filter(key => !allowedKeys.includes(key));
     if (invalidKeys.length > 0) {
         return {
